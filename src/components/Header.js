@@ -3,10 +3,14 @@ import React from 'react';
 import styled from 'styled-components';
 import Avatar from '@mui/material/Avatar';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import SearchIcon from '@mui/icons-material/Search';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
+import { Outlet } from 'react-router-dom';
 
 function Header() {
   return (
     <HeaderContainer>
+      <Outlet />
       {/* header left */}
       <HeaderLeft>
         <HeaderAvatar
@@ -15,16 +19,58 @@ function Header() {
         <AccessTimeIcon />
       </HeaderLeft>
       {/* header search */}
-
+      <HeaderSearch>
+        <SearchIcon />
+        <input placeholder="Search here" />
+      </HeaderSearch>
       {/* header right */}
+      <HeaderRight>
+        <QuestionMarkIcon />
+      </HeaderRight>
     </HeaderContainer>
   );
 }
 
 export default Header;
 
+const HeaderRight = styled.div`
+  flex: 0.3;
+  display: flex;
+  align-items: flex-end;
+
+  .MuiSvgIcon-root {
+    margin-left: auto;
+    margin-right: 20px;
+  }
+`;
+
+const HeaderSearch = styled.div`
+  flex: 0.4;
+  opacity: 1;
+  border-radius: 6px;
+  background-color: #421f44;
+  padding: 0 50px;
+  display: flex;
+
+  input {
+    background-color: transparent;
+    border: none;
+    text-align: center;
+    min-width: 30vw;
+    outline: 0;
+    color: white;
+  }
+`;
+
 const HeaderContainer = styled.div`
   display: flex;
+  position: fixed;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  background-color: var(--slack-color);
+  color: white;
 `;
 const HeaderLeft = styled.div`
   display: flex;
