@@ -6,15 +6,20 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import SearchIcon from '@mui/icons-material/Search';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import { Outlet } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../firebase';
 
 function Header() {
+  const [user] = useAuthState(auth);
   return (
     <HeaderContainer>
       <Outlet />
       {/* header left */}
       <HeaderLeft>
         <HeaderAvatar
-        // TODO: add onclick
+          onClick={() => auth.signOut()}
+          src={user?.photoURL}
+          alt={user?.displayName}
         />
         <AccessTimeIcon />
       </HeaderLeft>
@@ -65,6 +70,8 @@ const HeaderSearch = styled.div`
 const HeaderContainer = styled.div`
   display: flex;
   position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   align-items: center;
   justify-content: space-between;

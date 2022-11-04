@@ -15,10 +15,12 @@ import AddIcon from '@mui/icons-material/Add';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { db } from '../firebase';
+import { auth, db } from '../firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 function Sidebar() {
   const [channels, loading, error] = useCollection(db.collection('rooms'));
+  const [user] = useAuthState(auth);
   return (
     <SideContainer>
       <SideHeader>
@@ -26,7 +28,7 @@ function Sidebar() {
           <h2>PAAPA </h2>
           <h3>
             <FiberManualRecordIcon />
-            Patryk Panek
+            {user.displayName}
           </h3>
         </SideInfo>
         <CreateIcon />
@@ -54,6 +56,10 @@ function Sidebar() {
 export default Sidebar;
 
 const SideContainer = styled.div`
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  height: 100vh;
   background-color: var(--slack-color);
   color: white;
   flex: 0.3;
